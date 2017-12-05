@@ -6,7 +6,7 @@ class Picture {
     }
     
     get html() {
-        return '<img src="' + this.src + '" />';
+        return `<img src="${this.src}" />`;
     }
 }
 
@@ -17,7 +17,7 @@ class AccessiblePicture extends Picture {
     }
 
     get html() {
-        return '<img src="' + this.src + '" alt="' + this.alt + '" />';
+        return `<img src="${this.src}" alt="${this.alt}" />`;
     }
 
     static defaultAlt(src) {
