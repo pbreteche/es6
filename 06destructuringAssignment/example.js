@@ -30,3 +30,26 @@ var [vert, jaune, rouge, brun] = ['apple', 'banana', ...fruits2];
 
 })(...fruits1);
 
+// rest operator
+//==============
+
+// ES5
+(function (a, b) {
+    console.log(a, b, arguments)
+})(1, 2, 3, 4);
+// 1, 2, [1, 2, 3, 4]
+
+// ES2015
+(function (a, b, ...c) {
+    console.log(a, b, c);
+    //console.log(a, b, c)
+})(1, 2, 3, 4);
+// 1, 2, [3, 4]
+
+function sum(...operands) {
+    return operands.reduce(function(accumulator, currentValue){
+        return accumulator + currentValue;
+    })
+}
+
+console.log(sum(45, -32, 78, 909, -345));
