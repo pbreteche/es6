@@ -2,24 +2,28 @@
 
 class Picture {
     constructor(src) {
-        this._src = src;
+        this.src = src;
     }
     
     get html() {
         return '<img src="' + this.src + '" />';
     }
-
-    set src(src) {
-        this._src = src; // récursion infinie avec this.src
-    }
-
-    static example() {
-        return console.log(this);
-    }
 }
 
-Picture.example(); // OK
-(new Picture('test')).example()// KO
+class AccessiblePicture extends Picture {
+    constructor(src, alt = AccessiblePicture.defaultAlt(src)) {
+        super(src);
+        this.alt = alt;
+    }
+
+    get html() {
+        return '<img src="' + this.src + '" alt="' + this.alt + '" />';
+    }
+
+    static defaultAlt(src) {
+        return src.split('/').pop();
+    }
+}
 
 class GalleryComponent {
     constructor(selector) {
@@ -49,7 +53,7 @@ document.addEventListener('DOMContentLoaded', function(){
     const inputPicture = document.getElementById('pictureAddUri');
 
     inputPicture.nextElementSibling.addEventListener('click', function(){
-        gallerie.add(new Picture(inputPicture.value));
+        gallerie.add(new AccessiblePicture(inputPicture.value));
         gallerie.redraw();
     })
 });
