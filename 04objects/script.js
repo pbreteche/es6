@@ -48,11 +48,11 @@ class GalleryComponent {
     }
 }
 
-document.addEventListener('DOMContentLoaded', function(){
+document.addEventListener('DOMContentLoaded', () => {
     const gallerie = new GalleryComponent('.gallery');
     const inputPicture = document.getElementById('pictureAddUri');
 
-    inputPicture.nextElementSibling.addEventListener('click', function(){
+    inputPicture.nextElementSibling.addEventListener('click', () => {
         gallerie.add(new AccessiblePicture(inputPicture.value));
         gallerie.redraw();
     })
