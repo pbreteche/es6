@@ -7,12 +7,19 @@ class Picture {
     
     get html() {
         return '<img src="' + this.src + '" />';
-    }    
+    }
 
     set src(src) {
         this._src = src; // récursion infinie avec this.src
     }
+
+    static example() {
+        return console.log(this);
+    }
 }
+
+Picture.example(); // OK
+(new Picture('test')).example()// KO
 
 class GalleryComponent {
     constructor(selector) {
