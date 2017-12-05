@@ -13,3 +13,20 @@ var getContact = function () {
 }
 /* example combiné array + object destructuring */
 var {tel: [tel1, tel2], prenom} = getContact();
+
+
+// spread operator
+//================
+
+// utilisation d'un tableau comme une suie de valeurs séparées par des virgules
+
+var fruits1 = ['apple', 'banana'];
+var fruits2 = ['cherry', 'date'];
+var allFruits = [...fruits1, ...fruits2];
+
+var [vert, jaune, rouge, brun] = ['apple', 'banana', ...fruits2];
+
+(function (ingreditent2, ingredient2){
+
+})(...fruits1);
+
