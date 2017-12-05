@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Lateral Panel</title>
+    <style>
+    body {
+        background-color: lightgoldenrodyellow;
+    }
+
+    .toolbar {
+        height: 20vh;
+        background-color: lightseagreen;
+    }
+
+    .panel {
+        background-color: lightcoral;
+        height: 80vh;
+        width: 40ch;
+        position: relative;
+    }
+
+    .panel.closed {
+        left: -40ch;
+    }
+    </style>
+</head>
+<body>
+    <div class="toolbar">
+            <button>Ouvrir</button>
+    </div>    
+    <div class="panel closed">
+    </div>
+    <script src="js/script.js"></script>
+</body>
+</html>
