@@ -2,12 +2,16 @@
 
 class Picture {
     constructor(src) {
-        this.src = src;
+        this._src = src;
     }
     
-    toHTML() {
+    get html() {
         return '<img src="' + this.src + '" />';
     }    
+
+    set src(src) {
+        this._src = src; // récursion infinie avec this.src
+    }
 }
 
 class GalleryComponent {
@@ -26,7 +30,7 @@ class GalleryComponent {
     redraw(){
         let htmlOutput = '';
         for (const picture of this.pictures) {
-            htmlOutput += picture.toHTML(); 
+            htmlOutput += picture.html; 
         }
     
         this.baseElement.innerHTML = htmlOutput;
