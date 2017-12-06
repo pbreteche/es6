@@ -5,13 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Gallery</title>
+    <style>
+    .gallery ul {
+        list-style-type: none;
+        padding: 0;
+        display: flex;
+        flex-flow: row;
+    }
+
+    .gallery img {
+        height: 160px;
+    }
+
+    .gallery button {
+        position: absolute;
+        opacity: .25;
+    }
+
+    .gallery:hover button {
+        opacity: 1;
+    }
+    </style>   
 </head>
 <body>
-    <div>
-        <label for="pictureAddUri">URI</label>
-        <input type="text" id="pictureAddUri">
-        <button>Ajouter</button>
-    </div>
+    <div class="pictureAddUri"></div>        
     <output class="gallery"></output>    
     <script src="script.js"></script>
 </body>

@@ -25,9 +25,21 @@ class AccessiblePicture extends Picture {
     }
 }
 
-class GalleryComponent {
+class Component {
     constructor(selector) {
         this.baseElement = document.querySelector(selector);
+    }
+}
+
+class Template {
+    static forEach(strings, arrayValue) {
+        return arrayValue.reduce((a, e) => a + strings[0] + e.html + strings[1], '');
+    }
+}
+
+class GalleryComponent extends Component {
+    constructor(selector) {
+        super(selector);
         this.pictures = [];
     }
 
@@ -39,22 +51,55 @@ class GalleryComponent {
         this.pictures.push(picture);
     }
     redraw(){
-        let htmlOutput = '';
-        for (const picture of this.pictures) {
-            htmlOutput += picture.html; 
-        }
-    
-        this.baseElement.innerHTML = htmlOutput;
+        this.baseElement.innerHTML = `
+<ul>
+    ${Template.forEach`<li>${this.pictures}<button>X</button></li>`}
+</ul>`;
+
+        const deleteButtons = document.querySelectorAll('.gallery button');
+        let i = 0;
+        for (const btn of deleteButtons) {
+            btn.addEventListener('click', ((id)=> {
+                return (e) => {
+                    this.pictures.splice(id, 1);
+                    this.redraw()
+                };
+            })(i));
+            i++;
+        } 
+    }
+}
+
+class PictureAddComponent extends Component {
+    constructor(selector, gallery) {
+        super(selector);
+        this.gallery = gallery;
+        this.template = 
+        `<div>
+            <label for="pictureAddUri">URI</label>
+            <input type="text" id="pictureAddUri">
+            <button>Ajouter</button>
+        </div>`
+    }
+
+    redraw() {
+        this.baseElement.innerHTML = this.template;
+
+        const button = this.baseElement.querySelector('button');
+        const input = this.baseElement.querySelector('input');
+        
+        button.addEventListener('click', () => {
+            this.gallery.add(new AccessiblePicture(input.value));
+            this.gallery.redraw();
+        })
     }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    const gallerie = new GalleryComponent('.gallery');
-    const inputPicture = document.getElementById('pictureAddUri');
+    const gallerie = new GalleryComponent('.gallery');    
+    gallerie.redraw();
 
-    inputPicture.nextElementSibling.addEventListener('click', () => {
-        gallerie.add(new AccessiblePicture(inputPicture.value));
-        gallerie.redraw();
-    })
+    const pictureAdd = new PictureAddComponent('.pictureAddUri', gallerie);
+    pictureAdd.redraw();
 });
 
